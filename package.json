@@ -7,10 +7,19 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.24",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.563.0",
+    "postcss": "^8.5.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^7.13.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "recharts": "^3.7.0",
+    "tailwind-merge": "^3.4.0",
+    "web-vitals": "^2.1.4",
+    "zustand": "^5.0.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
   }
 }

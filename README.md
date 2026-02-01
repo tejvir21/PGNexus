@@ -1,70 +1,239 @@
-# Getting Started with Create React App
+# PG Nexus - Create React App Version
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive PG (Paying Guest) management system built with **Create React App**, Zustand, and Tailwind CSS.
 
-## Available Scripts
+## 🚀 Quick Start
 
-In the project directory, you can run:
+```bash
+# Install dependencies
+npm install
 
-### `npm start`
+# Start development server
+npm start
+```
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔐 Demo Login Credentials
+
+| Role   | Email                  | Password |
+|--------|------------------------|----------|
+| Admin  | admin@pgnexus.com     | password |
+| Owner  | owner@pgnexus.com     | password |
+| Tenant | tenant@pgnexus.com    | password |
+
+## ✨ Features
+
+### 🎨 Design & UI
+- **Dynamic Theme System**: 4 color themes (Blue, Purple, Green, Orange)
+- **Dark Mode Support**: Toggle between light and dark modes
+- **Responsive Design**: Desktop top nav + mobile bottom nav
+- **Modern Animations**: Smooth transitions
+- **Professional Components**: Built with best practices
+
+### 👥 Three User Roles
+
+#### Admin
+- View all properties and statistics
+- Manage tenants system-wide
+- Track payments and revenue
+- Handle complaints
+
+#### Owner
+- Multi-property management
+- Room and tenant management
+- Rent collection tracking
+- Maintenance requests
+
+#### Tenant
+- View room details
+- Payment history
+- Raise complaints
+- View notices
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   └── common/          # Reusable components
+├── pages/
+│   ├── auth/           # Login, Signup
+│   ├── admin/          # Admin dashboard
+│   ├── owner/          # Owner dashboard
+│   └── tenant/         # Tenant dashboard
+├── store/              # Zustand state management
+├── utils/              # Helper functions
+├── styles/             # Global CSS
+└── App.js              # Main app component
+```
+
+## 🛠️ Available Scripts
+
+### `npm start`
+Runs the app in development mode.  
+Open [http://localhost:3000](http://localhost:3000)
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode.
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder.
 
 ### `npm run eject`
+**Note: this is a one-way operation!**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🎨 Theme System
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Change themes via the palette icon in the navbar:
+- Blue (Default)
+- Purple
+- Green
+- Orange
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+All themes support dark mode!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📱 Responsive Breakpoints
 
-## Learn More
+- **Mobile**: < 768px (bottom navigation)
+- **Desktop**: ≥ 768px (top navigation)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🔧 Customization
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Change Primary Color
 
-### Code Splitting
+Edit `src/styles/index.css`:
+```css
+:root {
+  --color-primary-600: 37 99 235;  /* Your RGB values */
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Add New Theme
 
-### Analyzing the Bundle Size
+1. Add theme colors in `src/styles/index.css`
+2. Add theme option in `src/components/common/Navbar.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Add New Page
 
-### Making a Progressive Web App
+1. Create component in `src/pages/`
+2. Add route in `src/App.js`
+3. Add navigation in `src/components/common/BottomNav.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📦 Dependencies
 
-### Advanced Configuration
+### Core
+- react ^18.2.0
+- react-dom ^18.2.0
+- react-router-dom ^6.22.0
+- react-scripts ^5.0.1
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### State Management
+- zustand ^4.5.0
 
-### Deployment
+### UI & Styling
+- tailwindcss ^3.4.1
+- lucide-react ^0.344.0
+- clsx ^2.1.0
+- tailwind-merge ^2.2.1
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Utilities
+- date-fns ^3.3.1
 
-### `npm run build` fails to minify
+## 🚧 Common Issues
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Port Already in Use
+
+If port 3000 is busy:
+```bash
+# Windows
+netstat -ano | findstr :3000
+taskkill /PID <PID> /F
+
+# Mac/Linux
+lsof -ti:3000 | xargs kill -9
+
+# Or set different port
+PORT=3001 npm start
+```
+
+### Styles Not Applying
+
+1. Restart development server
+2. Clear browser cache (Ctrl+Shift+R)
+3. Check `tailwind.config.js` exists
+
+### Module Not Found
+
+```bash
+# Clear and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## 🎯 Next Steps
+
+### Phase 1 - Complete CRUD
+- [ ] Property management (add/edit/delete)
+- [ ] Room management
+- [ ] Tenant onboarding
+- [ ] Payment processing
+
+### Phase 2 - Advanced Features
+- [ ] Payment gateway integration
+- [ ] Email/SMS notifications
+- [ ] PDF report generation
+- [ ] Document management
+
+### Phase 3 - Analytics
+- [ ] Revenue charts
+- [ ] Occupancy trends
+- [ ] Payment analytics
+- [ ] Custom reports
+
+## 🔐 State Management (Zustand)
+
+```javascript
+import { useAuthStore, useThemeStore, usePGStore } from './store';
+
+// Auth
+const { user, login, logout } = useAuthStore();
+
+// Theme
+const { theme, setTheme, toggleDarkMode } = useThemeStore();
+
+// PG Data
+const { properties, tenants, addProperty } = usePGStore();
+```
+
+## 🎓 Learn More
+
+- [Create React App documentation](https://create-react-app.dev/)
+- [React documentation](https://react.dev/)
+- [Zustand documentation](https://github.com/pmndrs/zustand)
+- [Tailwind CSS documentation](https://tailwindcss.com/)
+
+## 📄 License
+
+MIT License - Free to use for personal or commercial projects
+
+## 🙏 Support
+
+Having issues? Check:
+1. Node.js version (should be 14+)
+2. npm version (should be 6+)
+3. All dependencies installed correctly
+
+## 🎉 Success Checklist
+
+- [x] Installed dependencies
+- [x] Started dev server
+- [x] Opened http://localhost:3000
+- [x] Logged in successfully
+- [x] Switched themes
+- [x] Toggled dark mode
+- [x] Tested mobile view
+
+---
+
+**Built with ❤️ using Create React App + Tailwind CSS**
