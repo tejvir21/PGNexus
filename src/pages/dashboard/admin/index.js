@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import {
   Building2,
   Users,
@@ -15,10 +15,10 @@ import Card, {
   CardContent,
 } from "../../../components/common/Card";
 import Badge from "../../../components/common/Badge";
-import { formatCurrency, formatDate } from "../../../utils/helpers";
+import { formatDate } from "../../../utils/helpers";
 
 const AdminDashboard = () => {
-  const [activeForm, setActiveForm] = useState(false);
+  // const [activeForm, setActiveForm] = useState(false);
   
   // Mock data
   const stats = [

@@ -2,6 +2,7 @@ import React from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import Card from "./Card";
 import { cn } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 const StatCard = ({
   title,
@@ -11,7 +12,10 @@ const StatCard = ({
   trendValue,
   color = "primary",
   loading = false,
+  to = "/",
 }) => {
+  const navigate = useNavigate();
+
   const colors = {
     primary: "from-primary-600 to-primary-700",
     success: "from-green-600 to-green-700",
@@ -36,11 +40,21 @@ const StatCard = ({
   return (
     <Card hover className="relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
+      <div
+        className="absolute top-0 right-0 w-32 h-32 opacity-5"
+        onClick={() => {
+          navigate(to);
+        }}
+      >
         <Icon className="w-full h-full" />
       </div>
 
-      <div className="relative">
+      <div
+        className="relative"
+        onClick={() => {
+          navigate(to);
+        }}
+      >
         <div className="flex items-start justify-between mb-4">
           <div>
             <p className="text-sm font-medium text-gray-600 dark:text-gray-400">

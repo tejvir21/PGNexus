@@ -1,23 +1,49 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import Auth from "./pages/auth";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import { useAuthStore } from "./store";
 import Layout from "./layout/Layout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 // Admin Pages
-import AdminDashboard from "./pages/dashboard/admin";
+import AdminDashboard from "./pages/admin/dashboard/Dashboard";
+import AdminProperties from "./pages/admin/pgs/Properties";
+import AdminTenants from "./pages/admin/tenants/Tenants";
+import AdminPayments from "./pages/admin/payments/Payments";
+import AdminComplaints from "./pages/admin/complaints/Complaints";
 
 // Owner Pages
-import OwnerDashboard from "./pages/dashboard/owner";
+import OwnerDashboard from "./pages/owner/dashboard/Dashboard";
+import OwnerProperties from "./pages/owner/pgs/Properties";
+import OwnerTenants from "./pages/owner/tenants/Tenants";
+import OwnerPayments from "./pages/owner/payments/Payments";
+import OwnerComplaints from "./pages/owner/complaints/Complaints";
 
 // Tenant Pages
-import TenantDashboard from "./pages/dashboard/tenant";
+import TenantDashboard from "./pages/tenant/dashboard/Dashboard";
+import TenantRoom from "./pages/tenant/room/Room";
+import TenantPayments from "./pages/tenant/payments/Payments";
+import TenantComplaints from "./pages/tenant/complaints/Complaints";
+import TenantNotices from "./pages/tenant/notices/Notices";
 
 // Import styles
 import "./styles/globals.css";
+
+// Demo Pages
+import FormsDemo from "./pages/FormsDemo";
+
+// Property Pages
+import PropertiesList from "./pages/pgs";
+import PropertyDetail from "./pages/pg-details";
+
+// Room Pages
+import RoomDetail from "./pages/room-details";
+
+// Tenant Pages
+import TenantsList from "./pages/tenants";
+import TenantDetail from "./pages/tenant-details";
 
 function App() {
   const { isAuthenticated, userRole } = useAuthStore();
@@ -67,9 +93,15 @@ function App() {
               path="properties"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Properties Page - Coming Soon
-                  </div>
+                  <AdminProperties />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="properties/:id"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminProperties />
                 </ProtectedRoute>
               }
             />
@@ -77,9 +109,15 @@ function App() {
               path="tenants"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Tenants Page - Coming Soon
-                  </div>
+                  <AdminTenants />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="tenants/:id"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminTenants />
                 </ProtectedRoute>
               }
             />
@@ -87,9 +125,7 @@ function App() {
               path="payments"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Payments Page - Coming Soon
-                  </div>
+                  <AdminPayments />
                 </ProtectedRoute>
               }
             />
@@ -97,9 +133,7 @@ function App() {
               path="complaints"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Complaints Page - Coming Soon
-                  </div>
+                  <AdminComplaints />
                 </ProtectedRoute>
               }
             />
@@ -120,9 +154,23 @@ function App() {
               path="properties"
               element={
                 <ProtectedRoute allowedRoles={["owner"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Properties Management - Coming Soon
-                  </div>
+                  <OwnerProperties />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="properties/:id"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <PropertyDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="room/:id"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <RoomDetail />
                 </ProtectedRoute>
               }
             />
@@ -130,9 +178,15 @@ function App() {
               path="tenants"
               element={
                 <ProtectedRoute allowedRoles={["owner"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Tenants Management - Coming Soon
-                  </div>
+                  <OwnerTenants />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="tenant/:id"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <TenantDetail />
                 </ProtectedRoute>
               }
             />
@@ -140,9 +194,7 @@ function App() {
               path="payments"
               element={
                 <ProtectedRoute allowedRoles={["owner"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Payments Management - Coming Soon
-                  </div>
+                  <OwnerPayments />
                 </ProtectedRoute>
               }
             />
@@ -150,9 +202,7 @@ function App() {
               path="complaints"
               element={
                 <ProtectedRoute allowedRoles={["owner"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Complaints Management - Coming Soon
-                  </div>
+                  <OwnerComplaints />
                 </ProtectedRoute>
               }
             />
@@ -176,9 +226,7 @@ function App() {
               path="room"
               element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Room Details - Coming Soon
-                  </div>
+                  <TenantRoom />
                 </ProtectedRoute>
               }
             />
@@ -186,9 +234,7 @@ function App() {
               path="payments"
               element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Payment History - Coming Soon
-                  </div>
+                  <TenantPayments />
                 </ProtectedRoute>
               }
             />
@@ -196,9 +242,7 @@ function App() {
               path="complaints"
               element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    My Complaints - Coming Soon
-                  </div>
+                  <TenantComplaints />
                 </ProtectedRoute>
               }
             />
@@ -206,9 +250,7 @@ function App() {
               path="notices"
               element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
-                  <div className="p-8 text-center text-gray-600 dark:text-gray-400">
-                    Notices Board - Coming Soon
-                  </div>
+                  <TenantNotices />
                 </ProtectedRoute>
               }
             />
@@ -218,21 +260,35 @@ function App() {
         {/* Default Route */}
         <Route path="/" element={<Navigate to={getDefaultRoute()} replace />} />
 
+        {/* Forms Demo Route */}
+        <Route path="/forms" element={<FormsDemo />} />
+
+        {/* Property Routes */}
+        <Route path="/properties" element={<PropertiesList />} />
+        <Route path="/properties/:id" element={<PropertyDetail />} />
+
+        {/* Room Routes */}
+        <Route path="/rooms/:id" element={<RoomDetail />} />
+
+        {/* Tenant Routes */}
+        <Route path="/tenants" element={<TenantsList />} />
+        <Route path="/tenants/:id" element={<TenantDetail />} />
+
         {/* 404 Route */}
         <Route
           path="*"
           element={
-            <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-950">
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
               <div className="text-center">
                 <h1 className="text-6xl font-bold text-gray-900 dark:text-gray-100">
                   404
                 </h1>
-                <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">
+                <p className="text-xl text-gray-600 dark:text-gray-400 mt-4">
                   Page not found
                 </p>
                 <button
                   onClick={() => (window.location.href = getDefaultRoute())}
-                  className="px-6 py-3 mt-6 text-white rounded-lg bg-primary-600 hover:bg-primary-700"
+                  className="mt-6 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                 >
                   Go Home
                 </button>

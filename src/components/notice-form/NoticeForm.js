@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Megaphone, FileText, Tag, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { Megaphone, Tag, Calendar } from 'lucide-react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Select from '../common/Select';

@@ -8,14 +8,14 @@ import {
   Megaphone,
   Plus
 } from 'lucide-react';
-import Button from '../../components/common/Button';
-import Card, { CardHeader, CardTitle, CardContent } from '../../components/common/Card';
-import PropertyForm from '../../components/common/PropertyForm';
-import RoomForm from '../../components/common/RoomForm';
-import TenantForm from '../../components/common/TenantForm';
-import ComplaintForm from '../../components/common/ComplaintForm';
-import PaymentForm from '../../components/common/PaymentForm';
-import NoticeForm from '../../components/common/NoticeForm';
+import Button from '../components/common/Button';
+import Card, { CardHeader, CardTitle, CardContent } from '../components/common/Card';
+import PropertyForm from '../components/pg-form/PropertyForm';
+import RoomForm from '../components/room-form/RoomForm';
+import TenantForm from '../components/tenant-form/TenantForm';
+import ComplaintForm from '../components/complaint-form/ComplaintForm';
+import PaymentForm from '../components/payment-form/PaymentForm';
+import NoticeForm from '../components/notice-form/NoticeForm';
 
 const FormsDemo = () => {
   const [activeForm, setActiveForm] = useState(null);
@@ -102,19 +102,19 @@ const FormsDemo = () => {
   ];
 
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
+    <div className="pb-20 space-y-6 md:pb-6">
       {/* Header */}
       <div className="animate-slide-down">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           Forms Demo
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <p className="mt-1 text-gray-600 dark:text-gray-400">
           Interactive demonstration of all available forms
         </p>
       </div>
 
       {/* Forms Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {forms.map((form, index) => {
           const Icon = form.icon;
           const FormComponent = form.component;
@@ -131,7 +131,7 @@ const FormsDemo = () => {
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>{form.title}</CardTitle>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   {form.description}
                 </p>
               </CardHeader>
@@ -166,29 +166,29 @@ const FormsDemo = () => {
         <CardContent>
           <div className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
                 1. Click "Open Form" Button
               </h4>
               <p>Each card represents a different form. Click the button to open the modal.</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
                 2. Fill in the Details
               </h4>
               <p>All forms have validation. Required fields are marked with an asterisk (*).</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
                 3. Submit the Form
               </h4>
               <p>Click the submit button. Data will be logged to the console and shown in an alert.</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <h4 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
                 4. Integration
               </h4>
               <p>
-                In production, replace the <code className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">handleFormSubmit</code> 
+                In production, replace the <code className="px-2 py-1 bg-gray-100 rounded dark:bg-gray-800">handleFormSubmit</code> 
                 {' '}function with your API calls to save data to your backend.
               </p>
             </div>
@@ -202,13 +202,13 @@ const FormsDemo = () => {
           <CardTitle>Form Features</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+              <h4 className="flex items-center font-semibold text-gray-900 dark:text-gray-100">
+                <div className="w-2 h-2 mr-2 bg-green-500 rounded-full" />
                 Validation
               </h4>
-              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+              <ul className="ml-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Required field validation</li>
                 <li>• Email format validation</li>
                 <li>• Phone number validation</li>
@@ -216,11 +216,11 @@ const FormsDemo = () => {
               </ul>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-2" />
+              <h4 className="flex items-center font-semibold text-gray-900 dark:text-gray-100">
+                <div className="w-2 h-2 mr-2 bg-blue-500 rounded-full" />
                 User Experience
               </h4>
-              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+              <ul className="ml-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Real-time error messages</li>
                 <li>• Keyboard navigation</li>
                 <li>• ESC key to close</li>
@@ -228,11 +228,11 @@ const FormsDemo = () => {
               </ul>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mr-2" />
+              <h4 className="flex items-center font-semibold text-gray-900 dark:text-gray-100">
+                <div className="w-2 h-2 mr-2 bg-purple-500 rounded-full" />
                 Design
               </h4>
-              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+              <ul className="ml-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Responsive layouts</li>
                 <li>• Dark mode support</li>
                 <li>• Icon integration</li>
@@ -240,11 +240,11 @@ const FormsDemo = () => {
               </ul>
             </div>
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mr-2" />
+              <h4 className="flex items-center font-semibold text-gray-900 dark:text-gray-100">
+                <div className="w-2 h-2 mr-2 bg-orange-500 rounded-full" />
                 Functionality
               </h4>
-              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+              <ul className="ml-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">
                 <li>• Add & Edit modes</li>
                 <li>• Dynamic field updates</li>
                 <li>• Calculated fields</li>

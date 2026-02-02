@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Building2, MapPin, Phone, Mail, User, IndianRupee, X } from 'lucide-react';
+import { Building2, MapPin, Phone, Mail, User, IndianRupee } from 'lucide-react';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import Select from '../common/Select';

@@ -1,40 +1,55 @@
-import React, { useState } from 'react';
-import { User, Mail, Phone, IdCard, Calendar, Home, IndianRupee } from 'lucide-react';
-import Button from '../common/Button';
-import Input from '../common/Input';
-import Select from '../common/Select';
-import Textarea from '../common/Textarea';
-import Modal from '../common/Modal';
+import { useState } from "react";
+import {
+  User,
+  Mail,
+  Phone,
+  IdCard,
+  Calendar,
+  Home,
+  IndianRupee,
+} from "lucide-react";
+import Button from "../common/Button";
+import Input from "../common/Input";
+import Select from "../common/Select";
+import Textarea from "../common/Textarea";
+import Modal from "../common/Modal";
 
-const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = [], rooms = [] }) => {
+const TenantForm = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData = null,
+  properties = [],
+  rooms = [],
+}) => {
   const [formData, setFormData] = useState({
-    fullName: initialData?.fullName || '',
-    email: initialData?.email || '',
-    phone: initialData?.phone || '',
-    alternatePhone: initialData?.alternatePhone || '',
-    idProofType: initialData?.idProofType || 'aadhaar',
-    idProofNumber: initialData?.idProofNumber || '',
-    propertyId: initialData?.propertyId || '',
-    roomId: initialData?.roomId || '',
-    moveInDate: initialData?.moveInDate || '',
-    rentAmount: initialData?.rentAmount || '',
-    securityDeposit: initialData?.securityDeposit || '',
-    emergencyContactName: initialData?.emergencyContactName || '',
-    emergencyContactPhone: initialData?.emergencyContactPhone || '',
-    occupation: initialData?.occupation || '',
-    companyName: initialData?.companyName || '',
-    permanentAddress: initialData?.permanentAddress || '',
+    fullName: initialData?.fullName || "",
+    email: initialData?.email || "",
+    phone: initialData?.phone || "",
+    alternatePhone: initialData?.alternatePhone || "",
+    idProofType: initialData?.idProofType || "aadhaar",
+    idProofNumber: initialData?.idProofNumber || "",
+    propertyId: initialData?.propertyId || "",
+    roomId: initialData?.roomId || "",
+    moveInDate: initialData?.moveInDate || "",
+    rentAmount: initialData?.rentAmount || "",
+    securityDeposit: initialData?.securityDeposit || "",
+    emergencyContactName: initialData?.emergencyContactName || "",
+    emergencyContactPhone: initialData?.emergencyContactPhone || "",
+    occupation: initialData?.occupation || "",
+    companyName: initialData?.companyName || "",
+    permanentAddress: initialData?.permanentAddress || "",
   });
 
   const [errors, setErrors] = useState({});
   const [filteredRooms, setFilteredRooms] = useState([]);
 
   const idProofTypes = [
-    { value: 'aadhaar', label: 'Aadhaar Card' },
-    { value: 'pan', label: 'PAN Card' },
-    { value: 'passport', label: 'Passport' },
-    { value: 'driving_license', label: 'Driving License' },
-    { value: 'voter_id', label: 'Voter ID' },
+    { value: "aadhaar", label: "Aadhaar Card" },
+    { value: "pan", label: "PAN Card" },
+    { value: "passport", label: "Passport" },
+    { value: "driving_license", label: "Driving License" },
+    { value: "voter_id", label: "Voter ID" },
   ];
 
   const handleChange = (e) => {
@@ -42,50 +57,51 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     // Filter rooms when property is selected
-    if (name === 'propertyId') {
+    if (name === "propertyId") {
       const availableRooms = rooms.filter(
-        (room) => room.propertyId === value && room.status === 'available'
+        (room) => room.propertyId === value && room.status === "available",
       );
       setFilteredRooms(availableRooms);
-      setFormData((prev) => ({ ...prev, roomId: '' }));
+      setFormData((prev) => ({ ...prev, roomId: "" }));
     }
 
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = "Email is invalid";
     }
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-      newErrors.phone = 'Phone must be 10 digits';
+      newErrors.phone = "Phone must be 10 digits";
     }
-    if (!formData.idProofNumber.trim()) newErrors.idProofNumber = 'ID proof number is required';
-    if (!formData.propertyId) newErrors.propertyId = 'Property is required';
-    if (!formData.roomId) newErrors.roomId = 'Room is required';
-    if (!formData.moveInDate) newErrors.moveInDate = 'Move-in date is required';
+    if (!formData.idProofNumber.trim())
+      newErrors.idProofNumber = "ID proof number is required";
+    if (!formData.propertyId) newErrors.propertyId = "Property is required";
+    if (!formData.roomId) newErrors.roomId = "Room is required";
+    if (!formData.moveInDate) newErrors.moveInDate = "Move-in date is required";
     if (!formData.rentAmount || formData.rentAmount <= 0) {
-      newErrors.rentAmount = 'Valid rent amount is required';
+      newErrors.rentAmount = "Valid rent amount is required";
     }
     if (!formData.securityDeposit || formData.securityDeposit <= 0) {
-      newErrors.securityDeposit = 'Valid security deposit is required';
+      newErrors.securityDeposit = "Valid security deposit is required";
     }
     if (!formData.emergencyContactName.trim()) {
-      newErrors.emergencyContactName = 'Emergency contact name is required';
+      newErrors.emergencyContactName = "Emergency contact name is required";
     }
     if (!formData.emergencyContactPhone.trim()) {
-      newErrors.emergencyContactPhone = 'Emergency contact phone is required';
+      newErrors.emergencyContactPhone = "Emergency contact phone is required";
     } else if (!/^[0-9]{10}$/.test(formData.emergencyContactPhone)) {
-      newErrors.emergencyContactPhone = 'Phone must be 10 digits';
+      newErrors.emergencyContactPhone = "Phone must be 10 digits";
     }
 
     return newErrors;
@@ -103,7 +119,7 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
     const submissionData = {
       ...formData,
       id: initialData?.id || Date.now().toString(),
-      status: initialData?.status || 'active',
+      status: initialData?.status || "active",
       createdAt: initialData?.createdAt || new Date().toISOString(),
     };
 
@@ -113,22 +129,22 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
 
   const handleClose = () => {
     setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      alternatePhone: '',
-      idProofType: 'aadhaar',
-      idProofNumber: '',
-      propertyId: '',
-      roomId: '',
-      moveInDate: '',
-      rentAmount: '',
-      securityDeposit: '',
-      emergencyContactName: '',
-      emergencyContactPhone: '',
-      occupation: '',
-      companyName: '',
-      permanentAddress: '',
+      fullName: "",
+      email: "",
+      phone: "",
+      alternatePhone: "",
+      idProofType: "aadhaar",
+      idProofNumber: "",
+      propertyId: "",
+      roomId: "",
+      moveInDate: "",
+      rentAmount: "",
+      securityDeposit: "",
+      emergencyContactName: "",
+      emergencyContactPhone: "",
+      occupation: "",
+      companyName: "",
+      permanentAddress: "",
     });
     setErrors({});
     setFilteredRooms([]);
@@ -139,7 +155,7 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title={initialData ? 'Edit Tenant' : 'Add New Tenant'}
+      title={initialData ? "Edit Tenant" : "Add New Tenant"}
       size="xl"
       footer={
         <>
@@ -147,7 +163,7 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            {initialData ? 'Update Tenant' : 'Add Tenant'}
+            {initialData ? "Update Tenant" : "Add Tenant"}
           </Button>
         </>
       }
@@ -248,7 +264,7 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
               onChange={handleChange}
               error={errors.propertyId}
               options={[
-                { value: '', label: 'Select Property' },
+                { value: "", label: "Select Property" },
                 ...properties.map((prop) => ({
                   value: prop.id,
                   label: prop.name,
@@ -263,7 +279,12 @@ const TenantForm = ({ isOpen, onClose, onSubmit, initialData = null, properties 
               onChange={handleChange}
               error={errors.roomId}
               options={[
-                { value: '', label: formData.propertyId ? 'Select Room' : 'Select Property First' },
+                {
+                  value: "",
+                  label: formData.propertyId
+                    ? "Select Room"
+                    : "Select Property First",
+                },
                 ...filteredRooms.map((room) => ({
                   value: room.id,
                   label: `${room.roomNumber} - ${room.roomType} (₹${room.rent})`,

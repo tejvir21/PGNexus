@@ -1,60 +1,68 @@
-import React, { useState } from 'react';
-import { AlertCircle, FileText, Tag } from 'lucide-react';
-import Button from '../common/Button';
-import Input from '../common/Input';
-import Select from '../common/Select';
-import Textarea from '../common/Textarea';
-import Modal from '../common/Modal';
+import { useState } from "react";
+import { AlertCircle, FileText, Tag } from "lucide-react";
+import Button from "../common/Button";
+import Input from "../common/Input";
+import Select from "../common/Select";
+import Textarea from "../common/Textarea";
+import Modal from "../common/Modal";
 
-const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole = 'tenant' }) => {
+const ComplaintForm = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData = null,
+  userRole = "tenant",
+}) => {
   const [formData, setFormData] = useState({
-    title: initialData?.title || '',
-    category: initialData?.category || 'maintenance',
-    priority: initialData?.priority || 'medium',
-    description: initialData?.description || '',
-    location: initialData?.location || '',
-    propertyId: initialData?.propertyId || '',
-    roomNumber: initialData?.roomNumber || '',
+    title: initialData?.title || "",
+    category: initialData?.category || "maintenance",
+    priority: initialData?.priority || "medium",
+    description: initialData?.description || "",
+    location: initialData?.location || "",
+    propertyId: initialData?.propertyId || "",
+    roomNumber: initialData?.roomNumber || "",
   });
 
   const [errors, setErrors] = useState({});
 
   const categoryOptions = [
-    { value: 'maintenance', label: 'Maintenance' },
-    { value: 'electrical', label: 'Electrical' },
-    { value: 'plumbing', label: 'Plumbing' },
-    { value: 'cleaning', label: 'Cleaning' },
-    { value: 'security', label: 'Security' },
-    { value: 'wifi', label: 'WiFi/Internet' },
-    { value: 'appliance', label: 'Appliance' },
-    { value: 'other', label: 'Other' },
+    { value: "maintenance", label: "Maintenance" },
+    { value: "electrical", label: "Electrical" },
+    { value: "plumbing", label: "Plumbing" },
+    { value: "cleaning", label: "Cleaning" },
+    { value: "security", label: "Security" },
+    { value: "wifi", label: "WiFi/Internet" },
+    { value: "appliance", label: "Appliance" },
+    { value: "other", label: "Other" },
   ];
 
   const priorityOptions = [
-    { value: 'low', label: 'Low' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'high', label: 'High' },
-    { value: 'urgent', label: 'Urgent' },
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+    { value: "urgent", label: "Urgent" },
   ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.title.trim()) newErrors.title = 'Title is required';
-    if (formData.title.trim().length < 5) newErrors.title = 'Title must be at least 5 characters';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
+    if (!formData.title.trim()) newErrors.title = "Title is required";
+    if (formData.title.trim().length < 5)
+      newErrors.title = "Title must be at least 5 characters";
+    if (!formData.description.trim())
+      newErrors.description = "Description is required";
     if (formData.description.trim().length < 10) {
-      newErrors.description = 'Description must be at least 10 characters';
+      newErrors.description = "Description must be at least 10 characters";
     }
-    if (!formData.location.trim()) newErrors.location = 'Location is required';
+    if (!formData.location.trim()) newErrors.location = "Location is required";
 
     return newErrors;
   };
@@ -71,7 +79,7 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
     const submissionData = {
       ...formData,
       id: initialData?.id || Date.now().toString(),
-      status: initialData?.status || 'open',
+      status: initialData?.status || "open",
       createdAt: initialData?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -82,13 +90,13 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
 
   const handleClose = () => {
     setFormData({
-      title: '',
-      category: 'maintenance',
-      priority: 'medium',
-      description: '',
-      location: '',
-      propertyId: '',
-      roomNumber: '',
+      title: "",
+      category: "maintenance",
+      priority: "medium",
+      description: "",
+      location: "",
+      propertyId: "",
+      roomNumber: "",
     });
     setErrors({});
     onClose();
@@ -98,7 +106,7 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title={initialData ? 'Edit Complaint' : 'Raise New Complaint'}
+      title={initialData ? "Edit Complaint" : "Raise New Complaint"}
       size="lg"
       footer={
         <>
@@ -106,7 +114,7 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            {initialData ? 'Update Complaint' : 'Submit Complaint'}
+            {initialData ? "Update Complaint" : "Submit Complaint"}
           </Button>
         </>
       }
@@ -157,7 +165,7 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
         />
 
         {/* Room Number (Optional) */}
-        {userRole === 'tenant' && (
+        {userRole === "tenant" && (
           <Input
             label="Room Number (Optional)"
             name="roomNumber"
@@ -188,10 +196,20 @@ const ComplaintForm = ({ isOpen, onClose, onSubmit, initialData = null, userRole
                 Priority Guidelines
               </h4>
               <ul className="space-y-1 text-sm text-blue-700 dark:text-blue-400">
-                <li><strong>Urgent:</strong> Safety issues, major leaks, power outage</li>
-                <li><strong>High:</strong> Broken appliances, heating/cooling issues</li>
-                <li><strong>Medium:</strong> Minor repairs, WiFi issues</li>
-                <li><strong>Low:</strong> Cosmetic issues, minor inconveniences</li>
+                <li>
+                  <strong>Urgent:</strong> Safety issues, major leaks, power
+                  outage
+                </li>
+                <li>
+                  <strong>High:</strong> Broken appliances, heating/cooling
+                  issues
+                </li>
+                <li>
+                  <strong>Medium:</strong> Minor repairs, WiFi issues
+                </li>
+                <li>
+                  <strong>Low:</strong> Cosmetic issues, minor inconveniences
+                </li>
               </ul>
             </div>
           </div>

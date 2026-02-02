@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -10,7 +9,6 @@ import {
   Megaphone,
   DollarSign,
   BellRing,
-  UserCircle,
 } from "lucide-react";
 import { cn } from "../../utils/helpers";
 import { useAuthStore } from "../../store";

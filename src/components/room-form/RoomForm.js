@@ -1,69 +1,78 @@
-import React, { useState } from 'react';
-import { BedDouble, Users, IndianRupee, Layers, Home } from 'lucide-react';
-import Button from '../common/Button';
-import Input from '../common/Input';
-import Select from '../common/Select';
-import Textarea from '../common/Textarea';
-import Modal from '../common/Modal';
+import { useState } from "react";
+import { BedDouble, Users, IndianRupee, Layers, Home } from "lucide-react";
+import Button from "../common/Button";
+import Input from "../common/Input";
+import Select from "../common/Select";
+import Textarea from "../common/Textarea";
+import Modal from "../common/Modal";
 
-const RoomForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = [] }) => {
+const RoomForm = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData = null,
+  properties = [],
+}) => {
   const [formData, setFormData] = useState({
-    propertyId: initialData?.propertyId || '',
-    roomNumber: initialData?.roomNumber || '',
-    floor: initialData?.floor || '',
-    roomType: initialData?.roomType || 'single',
-    capacity: initialData?.capacity || '1',
-    rent: initialData?.rent || '',
-    area: initialData?.area || '',
-    furnishing: initialData?.furnishing || 'unfurnished',
+    propertyId: initialData?.propertyId || "",
+    roomNumber: initialData?.roomNumber || "",
+    floor: initialData?.floor || "",
+    roomType: initialData?.roomType || "single",
+    capacity: initialData?.capacity || "1",
+    rent: initialData?.rent || "",
+    area: initialData?.area || "",
+    furnishing: initialData?.furnishing || "unfurnished",
     balcony: initialData?.balcony || false,
     attachedBathroom: initialData?.attachedBathroom || false,
     ac: initialData?.ac || false,
-    status: initialData?.status || 'available',
-    description: initialData?.description || '',
+    status: initialData?.status || "available",
+    description: initialData?.description || "",
   });
 
   const [errors, setErrors] = useState({});
 
   const roomTypes = [
-    { value: 'single', label: 'Single Occupancy' },
-    { value: 'double', label: 'Double Sharing' },
-    { value: 'triple', label: 'Triple Sharing' },
-    { value: 'four', label: 'Four Sharing' },
+    { value: "single", label: "Single Occupancy" },
+    { value: "double", label: "Double Sharing" },
+    { value: "triple", label: "Triple Sharing" },
+    { value: "four", label: "Four Sharing" },
   ];
 
   const furnishingOptions = [
-    { value: 'unfurnished', label: 'Unfurnished' },
-    { value: 'semi-furnished', label: 'Semi-Furnished' },
-    { value: 'fully-furnished', label: 'Fully Furnished' },
+    { value: "unfurnished", label: "Unfurnished" },
+    { value: "semi-furnished", label: "Semi-Furnished" },
+    { value: "fully-furnished", label: "Fully Furnished" },
   ];
 
   const statusOptions = [
-    { value: 'available', label: 'Available' },
-    { value: 'occupied', label: 'Occupied' },
-    { value: 'maintenance', label: 'Under Maintenance' },
-    { value: 'reserved', label: 'Reserved' },
+    { value: "available", label: "Available" },
+    { value: "occupied", label: "Occupied" },
+    { value: "maintenance", label: "Under Maintenance" },
+    { value: "reserved", label: "Reserved" },
   ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.propertyId) newErrors.propertyId = 'Property is required';
-    if (!formData.roomNumber.trim()) newErrors.roomNumber = 'Room number is required';
-    if (!formData.floor.trim()) newErrors.floor = 'Floor is required';
-    if (!formData.rent || formData.rent <= 0) newErrors.rent = 'Valid rent amount is required';
-    if (!formData.area || formData.area <= 0) newErrors.area = 'Valid room area is required';
+    if (!formData.propertyId) newErrors.propertyId = "Property is required";
+    if (!formData.roomNumber.trim())
+      newErrors.roomNumber = "Room number is required";
+    if (!formData.floor.trim()) newErrors.floor = "Floor is required";
+    if (!formData.rent || formData.rent <= 0)
+      newErrors.rent = "Valid rent amount is required";
+    if (!formData.area || formData.area <= 0)
+      newErrors.area = "Valid room area is required";
 
     return newErrors;
   };
@@ -89,19 +98,19 @@ const RoomForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = 
 
   const handleClose = () => {
     setFormData({
-      propertyId: '',
-      roomNumber: '',
-      floor: '',
-      roomType: 'single',
-      capacity: '1',
-      rent: '',
-      area: '',
-      furnishing: 'unfurnished',
+      propertyId: "",
+      roomNumber: "",
+      floor: "",
+      roomType: "single",
+      capacity: "1",
+      rent: "",
+      area: "",
+      furnishing: "unfurnished",
       balcony: false,
       attachedBathroom: false,
       ac: false,
-      status: 'available',
-      description: '',
+      status: "available",
+      description: "",
     });
     setErrors({});
     onClose();
@@ -111,7 +120,7 @@ const RoomForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = 
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title={initialData ? 'Edit Room' : 'Add New Room'}
+      title={initialData ? "Edit Room" : "Add New Room"}
       size="lg"
       footer={
         <>
@@ -119,7 +128,7 @@ const RoomForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = 
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            {initialData ? 'Update Room' : 'Create Room'}
+            {initialData ? "Update Room" : "Create Room"}
           </Button>
         </>
       }
@@ -133,7 +142,7 @@ const RoomForm = ({ isOpen, onClose, onSubmit, initialData = null, properties = 
           onChange={handleChange}
           error={errors.propertyId}
           options={[
-            { value: '', label: 'Select Property' },
+            { value: "", label: "Select Property" },
             ...properties.map((prop) => ({
               value: prop.id,
               label: prop.name,

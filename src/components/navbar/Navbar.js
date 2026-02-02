@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Bell,
@@ -13,7 +13,6 @@ import {
   Building2,
 } from "lucide-react";
 import { useAuthStore, useThemeStore } from "../../store";
-import Button from "../common/Button";
 import { cn } from "../../utils/helpers";
 
 const Navbar = () => {

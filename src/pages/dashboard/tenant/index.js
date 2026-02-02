@@ -3,7 +3,6 @@ import {
   Home,
   IndianRupee,
   AlertCircle,
-  Megaphone,
   BedDouble,
   Wifi,
   Wind,

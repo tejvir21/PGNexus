@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Building2,
   IndianRupee,
@@ -16,32 +17,29 @@ import Card, {
 import Badge from "../../../components/common/Badge";
 import Button from "../../../components/common/Button";
 import { formatCurrency, formatDate } from "../../../utils/helpers";
-import PropertyForm from "../../../components/pg-form/PropertyForm";
 
 const OwnerDashboard = () => {
-  const [activeForm, setActiveForm] = useState(false);
-
+  const navigate = useNavigate();
   const stats = [
     {
       title: "My Properties",
       value: "3",
       icon: Building2,
       color: "primary",
-      to: "/properties",
+      onClick: () => navigate("/owner/properties"),
     },
     {
       title: "Total Rooms",
       value: "28",
       icon: BedDouble,
       color: "success",
-      to: "/rooms",
     },
     {
       title: "Active Tenants",
       value: "22",
       icon: UserCheck,
       color: "info",
-      to: "/tenants",
+      onClick: () => navigate("/owner/tenants"),
     },
     {
       title: "This Month Revenue",
@@ -50,7 +48,7 @@ const OwnerDashboard = () => {
       trend: "up",
       trendValue: "+10%",
       color: "purple",
-      to: "/payments",
+      onClick: () => navigate("/owner/payments"),
     },
   ];
 
@@ -142,20 +140,25 @@ const OwnerDashboard = () => {
   ];
 
   return (
-    <div className="pb-20 space-y-6 md:pb-6">
+    <div className="space-y-6 pb-20 md:pb-6">
       <div className="animate-slide-down">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           Owner Dashboard
         </h1>
-        <p className="mt-1 text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-gray-400 mt-1">
           Manage your properties and tenants
         </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 animate-slide-up">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-slide-up">
         {stats.map((stat, index) => (
-          <div key={index} style={{ animationDelay: `${index * 100}ms` }}>
+          <div
+            key={index}
+            style={{ animationDelay: `${index * 100}ms` }}
+            onClick={stat.onClick}
+            className={stat.onClick ? "cursor-pointer" : ""}
+          >
             <StatCard {...stat} />
           </div>
         ))}
@@ -166,33 +169,31 @@ const OwnerDashboard = () => {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>My Properties</CardTitle>
           <Button size="sm" icon={Building2}>
-            <span
-              onClick={() => {
-                setActiveForm(true);
-                console.log("Clicked");
-              }}
-            >
-              Add Property
-            </span>
+            Add Property
           </Button>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {myProperties.map((property) => (
               <div
                 key={property.id}
-                className="p-4 transition-all border border-gray-200 cursor-pointer dark:border-gray-800 rounded-xl hover:shadow-md"
+                className="p-4 border border-gray-200 dark:border-gray-800 rounded-xl hover:shadow-md transition-all cursor-pointer"
+                onClick={() =>
+                  navigate(
+                    `/${window.location.pathname?.split("/")[1]}/properties/${property.id}`,
+                  )
+                }
               >
                 <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl flex items-center justify-center">
                     <Home className="w-6 h-6 text-white" />
                   </div>
                   <Badge variant="success">{property.status}</Badge>
                 </div>
-                <h3 className="mb-1 font-semibold text-gray-900 dark:text-gray-100">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
                   {property.name}
                 </h3>
-                <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   {property.address}
                 </p>
                 <div className="space-y-2">
@@ -235,7 +236,7 @@ const OwnerDashboard = () => {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Payments */}
         <Card className="animate-slide-up" style={{ animationDelay: "300ms" }}>
           <CardHeader>
@@ -246,10 +247,10 @@ const OwnerDashboard = () => {
               {recentPayments.map((payment) => (
                 <div
                   key={payment.id}
-                  className="flex items-center justify-between p-3 transition-colors border border-gray-200 rounded-lg dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
                       <IndianRupee className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -294,7 +295,7 @@ const OwnerDashboard = () => {
               {openComplaints.map((complaint) => (
                 <div
                   key={complaint.id}
-                  className="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  className="p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-medium text-gray-900 dark:text-gray-100">
@@ -309,11 +310,11 @@ const OwnerDashboard = () => {
                       {complaint.priority}
                     </Badge>
                   </div>
-                  <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                     {complaint.tenant} • {complaint.pg}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-400">
+                    <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center space-x-1">
                       <Clock className="w-3 h-3" />
                       <span>{formatDate(complaint.date)}</span>
                     </span>
@@ -327,15 +328,6 @@ const OwnerDashboard = () => {
           </CardContent>
         </Card>
       </div>
-
-      {activeForm && (
-        <PropertyForm
-          isOpen={activeForm}
-          onClose={setActiveForm}
-          onSubmit={setActiveForm}
-          initialData={null}
-        />
-      )}
     </div>
   );
 };
