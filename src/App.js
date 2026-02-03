@@ -101,7 +101,7 @@ function App() {
               path="properties/:id"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <AdminProperties />
+                  <PropertyDetail />
                 </ProtectedRoute>
               }
             />
@@ -114,10 +114,10 @@ function App() {
               }
             />
             <Route
-              path="tenants/:id"
+              path="tenant/:id"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
-                  <AdminTenants />
+                  <TenantDetail />
                 </ProtectedRoute>
               }
             />
@@ -227,6 +227,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
                   <TenantRoom />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="room/:id"
+              element={
+                <ProtectedRoute allowedRoles={["tenant"]}>
+                  <RoomDetail />
                 </ProtectedRoute>
               }
             />

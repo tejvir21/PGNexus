@@ -1,115 +1,119 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Building2, 
-  MapPin, 
-  Users, 
-  BedDouble, 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Building2,
+  MapPin,
+  Users,
+  BedDouble,
   Plus,
   Edit,
   Trash2,
   Eye,
   Search,
-} from 'lucide-react';
-import Button from '../../components/common/Button';
-import Card, { CardContent } from '../../components/common/Card';
-import Badge from '../../components/common/Badge';
-import Input from '../../components/common/Input';
-import PropertyForm from '../../components/pg-form/PropertyForm';
-import { formatCurrency } from '../../utils/helpers';
+} from "lucide-react";
+import Button from "../../components/common/Button";
+import Card, { CardContent } from "../../components/common/Card";
+import Badge from "../../components/common/Badge";
+import Input from "../../components/common/Input";
+import PropertyForm from "../../components/pg-form/PropertyForm";
+import { formatCurrency } from "../../utils/helpers";
 
 const PropertiesList = () => {
   const navigate = useNavigate();
   const [showPropertyForm, setShowPropertyForm] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterType, setFilterType] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all");
 
   // Mock data - replace with actual data from your store/API
   const [properties, setProperties] = useState([
     {
-      id: '1',
-      name: 'Green Valley PG',
-      address: 'Sector 15, Noida',
-      city: 'Noida',
-      state: 'Uttar Pradesh',
-      propertyType: 'boys',
+      id: "1",
+      name: "Green Valley PG",
+      address: "Sector 15, Noida",
+      city: "Noida",
+      state: "Uttar Pradesh",
+      propertyType: "boys",
       totalRooms: 12,
       occupiedRooms: 10,
       availableRooms: 2,
-      contactPerson: 'Rajesh Kumar',
-      contactNumber: '9876543210',
-      contactEmail: 'rajesh@greenvalley.com',
+      contactPerson: "Rajesh Kumar",
+      contactNumber: "9876543210",
+      contactEmail: "rajesh@greenvalley.com",
       securityDeposit: 10000,
       maintenanceCharge: 1000,
-      amenities: ['WiFi', 'AC', 'Parking', 'Laundry', 'Meals'],
+      amenities: ["WiFi", "AC", "Parking", "Laundry", "Meals"],
       monthlyRevenue: 52000,
-      status: 'active',
+      status: "active",
     },
     {
-      id: '2',
-      name: 'Sunrise Residency',
-      address: 'Gomti Nagar, Lucknow',
-      city: 'Lucknow',
-      state: 'Uttar Pradesh',
-      propertyType: 'girls',
+      id: "2",
+      name: "Sunrise Residency",
+      address: "Gomti Nagar, Lucknow",
+      city: "Lucknow",
+      state: "Uttar Pradesh",
+      propertyType: "girls",
       totalRooms: 15,
       occupiedRooms: 15,
       availableRooms: 0,
-      contactPerson: 'Priya Sharma',
-      contactNumber: '9876543211',
-      contactEmail: 'priya@sunrise.com',
+      contactPerson: "Priya Sharma",
+      contactNumber: "9876543211",
+      contactEmail: "priya@sunrise.com",
       securityDeposit: 12000,
       maintenanceCharge: 1200,
-      amenities: ['WiFi', 'Security', 'Meals', 'Power Backup'],
+      amenities: ["WiFi", "Security", "Meals", "Power Backup"],
       monthlyRevenue: 68000,
-      status: 'active',
+      status: "active",
     },
     {
-      id: '3',
-      name: 'Blue Haven',
-      address: 'Civil Lines, Allahabad',
-      city: 'Allahabad',
-      state: 'Uttar Pradesh',
-      propertyType: 'co-living',
+      id: "3",
+      name: "Blue Haven",
+      address: "Civil Lines, Allahabad",
+      city: "Allahabad",
+      state: "Uttar Pradesh",
+      propertyType: "co-living",
       totalRooms: 8,
       occupiedRooms: 6,
       availableRooms: 2,
-      contactPerson: 'Amit Patel',
-      contactNumber: '9876543212',
-      contactEmail: 'amit@bluehaven.com',
+      contactPerson: "Amit Patel",
+      contactNumber: "9876543212",
+      contactEmail: "amit@bluehaven.com",
       securityDeposit: 8000,
       maintenanceCharge: 800,
-      amenities: ['WiFi', 'Gym', 'Common Area'],
+      amenities: ["WiFi", "Gym", "Common Area"],
       monthlyRevenue: 32000,
-      status: 'active',
+      status: "active",
     },
   ]);
 
   const handleAddProperty = (data) => {
     setProperties([...properties, data]);
-    console.log('Property added:', data);
+    console.log("Property added:", data);
   };
 
   const handleEditProperty = (data) => {
-    setProperties(properties.map(p => p.id === data.id ? data : p));
-    console.log('Property updated:', data);
+    setProperties(properties.map((p) => (p.id === data.id ? data : p)));
+    console.log("Property updated:", data);
   };
 
   const handleDeleteProperty = (id) => {
-    if (window.confirm('Are you sure you want to delete this property?')) {
-      setProperties(properties.filter(p => p.id !== id));
+    if (window.confirm("Are you sure you want to delete this property?")) {
+      setProperties(properties.filter((p) => p.id !== id));
     }
   };
 
   const handleViewProperty = (propertyId) => {
-    navigate(`/properties/${propertyId}`);
+    navigate(
+      `/${window.location.pathname.split("/")[1]}/properties/${propertyId}`,
+    );
   };
 
-  const filteredProperties = properties.filter(property => {
-    const matchesSearch = property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         property.city.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = filterType === 'all' || property.propertyType === filterType;
+  const filteredProperties = properties.filter((property) => {
+    const matchesSearch =
+      property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      property.city.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesType =
+      filterType === "all" || property.propertyType === filterType;
     return matchesSearch && matchesType;
   });
 
@@ -118,15 +122,15 @@ const PropertiesList = () => {
   };
 
   const getOccupancyColor = (percentage) => {
-    if (percentage === 100) return 'success';
-    if (percentage >= 75) return 'info';
-    if (percentage >= 50) return 'warning';
-    return 'danger';
+    if (percentage === 100) return "success";
+    if (percentage >= 75) return "info";
+    if (percentage >= 50) return "warning";
+    return "danger";
   };
 
   const stats = {
     total: properties.length,
-    active: properties.filter(p => p.status === 'active').length,
+    active: properties.filter((p) => p.status === "active").length,
     totalRooms: properties.reduce((sum, p) => sum + p.totalRooms, 0),
     occupiedRooms: properties.reduce((sum, p) => sum + p.occupiedRooms, 0),
     totalRevenue: properties.reduce((sum, p) => sum + p.monthlyRevenue, 0),
@@ -222,41 +226,41 @@ const PropertiesList = () => {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setFilterType('all')}
+            onClick={() => setFilterType("all")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterType === 'all'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterType === "all"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             All
           </button>
           <button
-            onClick={() => setFilterType('boys')}
+            onClick={() => setFilterType("boys")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterType === 'boys'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterType === "boys"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             Boys
           </button>
           <button
-            onClick={() => setFilterType('girls')}
+            onClick={() => setFilterType("girls")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterType === 'girls'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterType === "girls"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             Girls
           </button>
           <button
-            onClick={() => setFilterType('co-living')}
+            onClick={() => setFilterType("co-living")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterType === 'co-living'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterType === "co-living"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             Co-Living
@@ -279,12 +283,14 @@ const PropertiesList = () => {
                     <Building2 className="text-white w-7 h-7" />
                   </div>
                   <div className="flex gap-2">
-                    <Badge variant={property.status === 'active' ? 'success' : 'danger'}>
+                    <Badge
+                      variant={
+                        property.status === "active" ? "success" : "danger"
+                      }
+                    >
                       {property.status}
                     </Badge>
-                    <Badge variant="info">
-                      {property.propertyType}
-                    </Badge>
+                    <Badge variant="info">{property.propertyType}</Badge>
                   </div>
                 </div>
 
@@ -301,7 +307,9 @@ const PropertiesList = () => {
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">Rooms</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                        Rooms
+                      </span>
                       <BedDouble className="w-4 h-4 text-gray-400" />
                     </div>
                     <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
@@ -310,7 +318,9 @@ const PropertiesList = () => {
                   </div>
                   <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-600 dark:text-gray-400">Tenants</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">
+                        Tenants
+                      </span>
                       <Users className="w-4 h-4 text-gray-400" />
                     </div>
                     <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
@@ -322,7 +332,9 @@ const PropertiesList = () => {
                 {/* Occupancy */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Occupancy</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Occupancy
+                    </span>
                     <Badge variant={occupancyColor} size="sm">
                       {occupancyPercentage}%
                     </Badge>
@@ -331,12 +343,12 @@ const PropertiesList = () => {
                     <div
                       className={`h-2 rounded-full transition-all duration-300 ${
                         occupancyPercentage === 100
-                          ? 'bg-green-500'
+                          ? "bg-green-500"
                           : occupancyPercentage >= 75
-                          ? 'bg-blue-500'
-                          : occupancyPercentage >= 50
-                          ? 'bg-yellow-500'
-                          : 'bg-red-500'
+                            ? "bg-blue-500"
+                            : occupancyPercentage >= 50
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
                       }`}
                       style={{ width: `${occupancyPercentage}%` }}
                     />
@@ -345,7 +357,9 @@ const PropertiesList = () => {
 
                 {/* Revenue */}
                 <div className="flex items-center justify-between p-3 mb-4 rounded-lg bg-primary-50 dark:bg-primary-900/20">
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Monthly Revenue</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    Monthly Revenue
+                  </span>
                   <span className="font-bold text-primary-600 dark:text-primary-400">
                     {formatCurrency(property.monthlyRevenue)}
                   </span>
@@ -413,7 +427,9 @@ const PropertiesList = () => {
               No Properties Found
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-400">
-              {searchQuery ? 'Try adjusting your search criteria' : 'Get started by adding your first property'}
+              {searchQuery
+                ? "Try adjusting your search criteria"
+                : "Get started by adding your first property"}
             </p>
             {!searchQuery && (
               <Button

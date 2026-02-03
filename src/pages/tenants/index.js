@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Users,
   Search,
@@ -11,108 +11,111 @@ import {
   Mail,
   Home,
   Calendar,
-} from 'lucide-react';
-import Button from '../../components/common/Button';
-import Card, { CardContent } from '../../components/common/Card';
-import Badge from '../../components/common/Badge';
-import Input from '../../components/common/Input';
-import TenantForm from '../../components/tenant-form/TenantForm';
-import { formatCurrency, formatDate } from '../../utils/helpers';
+} from "lucide-react";
+import Button from "../../components/common/Button";
+import Card, { CardContent } from "../../components/common/Card";
+import Badge from "../../components/common/Badge";
+import Input from "../../components/common/Input";
+import TenantForm from "../../components/tenant-form/TenantForm";
+import { formatCurrency, formatDate } from "../../utils/helpers";
 
 const TenantsList = () => {
   const navigate = useNavigate();
   const [showTenantForm, setShowTenantForm] = useState(false);
   const [selectedTenant, setSelectedTenant] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
 
   // Mock data
   const [tenants, setTenants] = useState([
     {
-      id: '1',
-      fullName: 'Arun Kumar',
-      email: 'arun.kumar@email.com',
-      phone: '9876543210',
-      propertyId: '1',
-      propertyName: 'Green Valley PG',
-      roomId: '1',
-      roomNumber: '101',
-      moveInDate: '2023-06-15',
+      id: "1",
+      fullName: "Arun Kumar",
+      email: "arun.kumar@email.com",
+      phone: "9876543210",
+      propertyId: "1",
+      propertyName: "Green Valley PG",
+      roomId: "1",
+      roomNumber: "101",
+      moveInDate: "2023-06-15",
       rentAmount: 5500,
       securityDeposit: 11000,
-      status: 'active',
-      occupation: 'Software Engineer',
-      companyName: 'Tech Corp',
+      status: "active",
+      occupation: "Software Engineer",
+      companyName: "Tech Corp",
     },
     {
-      id: '2',
-      fullName: 'Priya Sharma',
-      email: 'priya.sharma@email.com',
-      phone: '9876543211',
-      propertyId: '2',
-      propertyName: 'Sunrise Residency',
-      roomId: '5',
-      roomNumber: '205',
-      moveInDate: '2023-08-20',
+      id: "2",
+      fullName: "Priya Sharma",
+      email: "priya.sharma@email.com",
+      phone: "9876543211",
+      propertyId: "2",
+      propertyName: "Sunrise Residency",
+      roomId: "5",
+      roomNumber: "205",
+      moveInDate: "2023-08-20",
       rentAmount: 6000,
       securityDeposit: 12000,
-      status: 'active',
-      occupation: 'Marketing Manager',
-      companyName: 'Brand Co',
+      status: "active",
+      occupation: "Marketing Manager",
+      companyName: "Brand Co",
     },
     {
-      id: '3',
-      fullName: 'Rahul Verma',
-      email: 'rahul.verma@email.com',
-      phone: '9876543212',
-      propertyId: '3',
-      propertyName: 'Blue Haven',
-      roomId: '8',
-      roomNumber: '303',
-      moveInDate: '2023-05-10',
+      id: "3",
+      fullName: "Rahul Verma",
+      email: "rahul.verma@email.com",
+      phone: "9876543212",
+      propertyId: "3",
+      propertyName: "Blue Haven",
+      roomId: "8",
+      roomNumber: "303",
+      moveInDate: "2023-05-10",
       rentAmount: 4500,
       securityDeposit: 9000,
-      status: 'inactive',
-      occupation: 'Teacher',
-      companyName: 'ABC School',
+      status: "inactive",
+      occupation: "Teacher",
+      companyName: "ABC School",
     },
   ]);
 
   const handleAddTenant = (data) => {
     setTenants([...tenants, data]);
-    console.log('Tenant added:', data);
+    console.log("Tenant added:", data);
   };
 
   const handleEditTenant = (data) => {
-    setTenants(tenants.map(t => t.id === data.id ? data : t));
-    console.log('Tenant updated:', data);
+    setTenants(tenants.map((t) => (t.id === data.id ? data : t)));
+    console.log("Tenant updated:", data);
   };
 
   const handleDeleteTenant = (id) => {
-    if (window.confirm('Are you sure you want to remove this tenant?')) {
-      setTenants(tenants.filter(t => t.id !== id));
+    if (window.confirm("Are you sure you want to remove this tenant?")) {
+      setTenants(tenants.filter((t) => t.id !== id));
     }
   };
 
   const handleViewTenant = (tenantId) => {
-    navigate(`/tenants/${tenantId}`);
+    navigate(`/${window.location.pathname.split("/")[1]}/tenant/${tenantId}`);
   };
 
-  const filteredTenants = tenants.filter(tenant => {
-    const matchesSearch = 
+  const filteredTenants = tenants.filter((tenant) => {
+    const matchesSearch =
       tenant.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tenant.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tenant.phone.includes(searchQuery) ||
       tenant.roomNumber.includes(searchQuery);
-    const matchesStatus = filterStatus === 'all' || tenant.status === filterStatus;
+    const matchesStatus =
+      filterStatus === "all" || tenant.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
   const stats = {
     total: tenants.length,
-    active: tenants.filter(t => t.status === 'active').length,
-    inactive: tenants.filter(t => t.status === 'inactive').length,
-    totalRevenue: tenants.filter(t => t.status === 'active').reduce((sum, t) => sum + t.rentAmount, 0),
+    active: tenants.filter((t) => t.status === "active").length,
+    inactive: tenants.filter((t) => t.status === "inactive").length,
+    totalRevenue: tenants
+      .filter((t) => t.status === "active")
+      .reduce((sum, t) => sum + t.rentAmount, 0),
   };
 
   return (
@@ -195,31 +198,31 @@ const TenantsList = () => {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setFilterStatus('all')}
+            onClick={() => setFilterStatus("all")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterStatus === 'all'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterStatus === "all"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             All
           </button>
           <button
-            onClick={() => setFilterStatus('active')}
+            onClick={() => setFilterStatus("active")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterStatus === 'active'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterStatus === "active"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             Active
           </button>
           <button
-            onClick={() => setFilterStatus('inactive')}
+            onClick={() => setFilterStatus("inactive")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              filterStatus === 'inactive'
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+              filterStatus === "inactive"
+                ? "bg-primary-600 text-white"
+                : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
             }`}
           >
             Inactive
@@ -266,7 +269,11 @@ const TenantsList = () => {
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
                         <div className="flex items-center justify-center w-10 h-10 font-semibold text-white rounded-full bg-gradient-to-br from-primary-600 to-accent-600">
-                          {tenant.fullName.split(' ').map(n => n[0]).join('').toUpperCase()}
+                          {tenant.fullName
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .toUpperCase()}
                         </div>
                         <div>
                           <p className="font-medium text-gray-900 dark:text-gray-100">
@@ -318,7 +325,11 @@ const TenantsList = () => {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <Badge variant={tenant.status === 'active' ? 'success' : 'danger'}>
+                      <Badge
+                        variant={
+                          tenant.status === "active" ? "success" : "danger"
+                        }
+                      >
                         {tenant.status}
                       </Badge>
                     </td>
@@ -362,7 +373,9 @@ const TenantsList = () => {
                 No Tenants Found
               </h3>
               <p className="mb-4 text-gray-600 dark:text-gray-400">
-                {searchQuery ? 'Try adjusting your search criteria' : 'Get started by adding your first tenant'}
+                {searchQuery
+                  ? "Try adjusting your search criteria"
+                  : "Get started by adding your first tenant"}
               </p>
               {!searchQuery && (
                 <Button
@@ -390,12 +403,12 @@ const TenantsList = () => {
         }}
         onSubmit={selectedTenant ? handleEditTenant : handleAddTenant}
         properties={[
-          { id: '1', name: 'Green Valley PG' },
-          { id: '2', name: 'Sunrise Residency' },
+          { id: "1", name: "Green Valley PG" },
+          { id: "2", name: "Sunrise Residency" },
         ]}
         rooms={[
-          { id: '1', propertyId: '1', roomNumber: '101', status: 'available' },
-          { id: '2', propertyId: '1', roomNumber: '102', status: 'available' },
+          { id: "1", propertyId: "1", roomNumber: "101", status: "available" },
+          { id: "2", propertyId: "1", roomNumber: "102", status: "available" },
         ]}
         initialData={selectedTenant}
       />

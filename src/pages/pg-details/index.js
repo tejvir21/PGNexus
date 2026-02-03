@@ -156,6 +156,7 @@ const PropertyDetail = () => {
       value: property.totalRooms.toString(),
       icon: BedDouble,
       color: "primary",
+      to: `#`,
     },
     {
       title: "Occupied",
@@ -164,12 +165,14 @@ const PropertyDetail = () => {
       color: "success",
       trend: "up",
       trendValue: "83%",
+      to: "#",
     },
     {
       title: "Available",
       value: property.availableRooms.toString(),
       icon: Home,
       color: "info",
+      to: "#",
     },
     {
       title: "Monthly Revenue",
@@ -178,6 +181,7 @@ const PropertyDetail = () => {
       color: "purple",
       trend: "up",
       trendValue: "+12%",
+      to: `/${window.location.pathname?.split("/")[1]}/payments`,
     },
   ];
 

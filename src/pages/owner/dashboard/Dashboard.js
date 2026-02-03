@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Building2,
@@ -7,6 +7,7 @@ import {
   BedDouble,
   UserCheck,
   Clock,
+  ArrowUpRight,
 } from "lucide-react";
 import StatCard from "../../../components/common/StatCard";
 import Card, {
@@ -17,9 +18,11 @@ import Card, {
 import Badge from "../../../components/common/Badge";
 import Button from "../../../components/common/Button";
 import { formatCurrency, formatDate } from "../../../utils/helpers";
+import PropertyForm from "../../../components/pg-form/PropertyForm";
 
 const OwnerDashboard = () => {
   const navigate = useNavigate();
+  const [isPropertyFormOpen, setIsPropertyFormOpen] = useState(false);
   const stats = [
     {
       title: "My Properties",
@@ -169,7 +172,9 @@ const OwnerDashboard = () => {
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>My Properties</CardTitle>
           <Button size="sm" icon={Building2}>
-            Add Property
+            <span onClick={() => setIsPropertyFormOpen(true)}>
+              Add Property
+            </span>
           </Button>
         </CardHeader>
         <CardContent>
@@ -239,8 +244,18 @@ const OwnerDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Payments */}
         <Card className="animate-slide-up" style={{ animationDelay: "300ms" }}>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Recent Payments</CardTitle>
+            <span
+              onClick={() =>
+                navigate(`/${window.location.pathname?.split("/")[1]}/payments`)
+              }
+            >
+              <button className="text-sm text-primary-600 hover:text-primary-700 flex items-center space-x-1">
+                View All
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </span>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -287,8 +302,20 @@ const OwnerDashboard = () => {
 
         {/* Open Complaints */}
         <Card className="animate-slide-up" style={{ animationDelay: "400ms" }}>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Open Complaints</CardTitle>
+            <span
+              onClick={() =>
+                navigate(
+                  `/${window.location.pathname?.split("/")[1]}/complaints`,
+                )
+              }
+            >
+              <button className="text-sm text-primary-600 hover:text-primary-700 flex items-center space-x-1">
+                View All
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </span>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -328,6 +355,12 @@ const OwnerDashboard = () => {
           </CardContent>
         </Card>
       </div>
+      <PropertyForm
+        isOpen={isPropertyFormOpen}
+        onClose={() => setIsPropertyFormOpen(false)}
+        onSubmit={() => setIsPropertyFormOpen(false)}
+        initialData={null}
+      />
     </div>
   );
 };
