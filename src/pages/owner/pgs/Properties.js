@@ -90,14 +90,14 @@ const OwnerProperties = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
+    <div className="pb-20 space-y-6 md:pb-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             My Properties
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="mt-1 text-gray-600 dark:text-gray-400">
             Manage your PG properties
           </p>
         </div>
@@ -114,7 +114,7 @@ const OwnerProperties = () => {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -158,7 +158,7 @@ const OwnerProperties = () => {
       </div>
 
       {/* Properties Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {properties.map((property) => {
           const occupancyPercentage = getOccupancyPercentage(property);
 
@@ -167,8 +167,8 @@ const OwnerProperties = () => {
               <CardContent className="p-6">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl flex items-center justify-center">
-                    <Building2 className="w-7 h-7 text-white" />
+                  <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary-600 to-accent-600 rounded-xl">
+                    <Building2 className="text-white w-7 h-7" />
                   </div>
                   <div className="flex gap-2">
                     <Badge
@@ -185,17 +185,17 @@ const OwnerProperties = () => {
                 </div>
 
                 {/* Property Details */}
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
                   {property.name}
                 </h3>
-                <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-4">
+                <div className="flex items-center mb-4 text-sm text-gray-600 dark:text-gray-400">
                   <MapPin className="w-4 h-4 mr-1" />
                   {property.address}
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         Rooms
@@ -206,7 +206,7 @@ const OwnerProperties = () => {
                       {property.totalRooms}
                     </div>
                   </div>
-                  <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs text-gray-600 dark:text-gray-400">
                         Tenants
@@ -229,7 +229,7 @@ const OwnerProperties = () => {
                       {occupancyPercentage}%
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-700">
                     <div
                       className={`h-2 rounded-full transition-all duration-300 ${
                         occupancyPercentage === 100
@@ -246,7 +246,7 @@ const OwnerProperties = () => {
                 </div>
 
                 {/* Revenue */}
-                <div className="flex items-center justify-between mb-4 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
+                <div className="flex items-center justify-between p-3 mb-4 rounded-lg bg-primary-50 dark:bg-primary-900/20">
                   <span className="text-sm text-gray-700 dark:text-gray-300">
                     Monthly Revenue
                   </span>
@@ -287,10 +287,10 @@ const OwnerProperties = () => {
         <Card>
           <CardContent className="p-12 text-center">
             <Home className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
               No Properties Yet
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="mb-4 text-gray-600 dark:text-gray-400">
               Get started by adding your first property
             </p>
             <Button

@@ -1,3 +1,4 @@
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -9,6 +10,7 @@ import {
   Megaphone,
   DollarSign,
   BellRing,
+  UserCircle,
 } from "lucide-react";
 import { cn } from "../../utils/helpers";
 import { useAuthStore } from "../../store";
@@ -24,6 +26,7 @@ const BottomNav = () => {
     { path: "/admin/tenants", icon: Users, label: "Tenants" },
     { path: "/admin/payments", icon: Receipt, label: "Payments" },
     { path: "/admin/complaints", icon: AlertCircle, label: "Issues" },
+    { path: "/admin/profile", icon: UserCircle, label: "Profile" },
   ];
 
   const ownerNavItems = [
@@ -31,7 +34,9 @@ const BottomNav = () => {
     { path: "/owner/properties", icon: Building2, label: "Properties" },
     { path: "/owner/tenants", icon: Users, label: "Tenants" },
     { path: "/owner/payments", icon: DollarSign, label: "Payments" },
+    { path: "/owner/notices", icon: Megaphone, label: "Notices" },
     { path: "/owner/complaints", icon: AlertCircle, label: "Issues" },
+    { path: "/owner/profile", icon: UserCircle, label: "Profile" },
   ];
 
   const tenantNavItems = [
@@ -40,6 +45,7 @@ const BottomNav = () => {
     { path: "/tenant/payments", icon: DollarSign, label: "Payments" },
     { path: "/tenant/complaints", icon: BellRing, label: "Complaints" },
     { path: "/tenant/notices", icon: Megaphone, label: "Notices" },
+    { path: "/tenant/profile", icon: UserCircle, label: "Profile" },
   ];
 
   const getNavItems = () => {

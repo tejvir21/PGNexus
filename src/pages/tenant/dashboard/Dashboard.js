@@ -143,18 +143,18 @@ const TenantDashboard = () => {
   };
 
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
+    <div className="pb-20 space-y-6 md:pb-6">
       <div className="animate-slide-down">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           Welcome Back!
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <p className="mt-1 text-gray-600 dark:text-gray-400">
           {roomDetails.pg} - {roomDetails.number}
         </p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-slide-up">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 animate-slide-up">
         {stats.map((stat, index) => (
           <div key={index} style={{ animationDelay: `${index * 100}ms` }}>
             <StatCard {...stat} />
@@ -162,7 +162,7 @@ const TenantDashboard = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Room Details */}
         <Card
           className="lg:col-span-2 animate-slide-up"
@@ -175,7 +175,7 @@ const TenantDashboard = () => {
             <div className="space-y-6">
               {/* Basic Info */}
               <div className="flex items-start space-x-4">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center justify-center flex-shrink-0 w-20 h-20 bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl">
                   <BedDouble className="w-10 h-10 text-white" />
                 </div>
                 <div className="flex-1">
@@ -185,7 +185,7 @@ const TenantDashboard = () => {
                   <p className="text-gray-600 dark:text-gray-400">
                     {roomDetails.floor}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     {roomDetails.pg}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -195,6 +195,7 @@ const TenantDashboard = () => {
                 <span
                   onClick={() =>
                     navigate(
+                      `/${window.location.pathname?.split("/")[1]}/room`,
                       `/${window.location.pathname?.split("/")[1]}/room/${101 || roomDetails.number}`,
                     )
                   }
@@ -206,7 +207,7 @@ const TenantDashboard = () => {
               </div>
 
               {/* Financial Info */}
-              <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+              <div className="grid grid-cols-2 gap-4 p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50">
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Monthly Rent
@@ -227,16 +228,16 @@ const TenantDashboard = () => {
 
               {/* Amenities */}
               <div>
-                <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-3">
+                <h4 className="mb-3 font-medium text-gray-900 dark:text-gray-100">
                   Amenities
                 </h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {roomDetails.amenities.map((amenity, index) => {
                     const Icon = amenityIcons[amenity] || Home;
                     return (
                       <div
                         key={index}
-                        className="flex items-center space-x-2 p-2 rounded-lg bg-primary-50 dark:bg-primary-900/20"
+                        className="flex items-center p-2 space-x-2 rounded-lg bg-primary-50 dark:bg-primary-900/20"
                       >
                         <Icon className="w-4 h-4 text-primary-600" />
                         <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -273,10 +274,10 @@ const TenantDashboard = () => {
               {notices.slice(0, 3).map((notice) => (
                 <div
                   key={notice.id}
-                  className="p-3 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+                  className="p-3 transition-colors border border-gray-200 rounded-lg cursor-pointer dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                 >
                   <div className="flex items-start justify-between mb-1">
-                    <h4 className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                    <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {notice.title}
                     </h4>
                     <Badge
@@ -295,7 +296,7 @@ const TenantDashboard = () => {
                   <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
                     {notice.content}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     {formatDate(notice.date)}
                   </p>
                 </div>
@@ -314,12 +315,12 @@ const TenantDashboard = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Payment History */}
         <Card className="animate-slide-up" style={{ animationDelay: "400ms" }}>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Payment History</CardTitle>
-            <button className="text-sm text-primary-600 hover:text-primary-700 flex items-center space-x-1">
+            <button className="flex items-center space-x-1 text-sm text-primary-600 hover:text-primary-700">
               <span
                 onClick={() =>
                   navigate(
@@ -337,10 +338,10 @@ const TenantDashboard = () => {
               {paymentHistory.map((payment) => (
                 <div
                   key={payment.id}
-                  className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-800"
+                  className="flex items-center justify-between p-3 border border-gray-200 rounded-lg dark:border-gray-800"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600">
                       <IndianRupee className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -377,7 +378,7 @@ const TenantDashboard = () => {
                 )
               }
             >
-              <button className="text-sm text-primary-600 hover:text-primary-700 flex items-center space-x-1">
+              <button className="flex items-center space-x-1 text-sm text-primary-600 hover:text-primary-700">
                 View All
                 <ArrowUpRight className="w-4 h-4" />
               </button>
@@ -388,7 +389,7 @@ const TenantDashboard = () => {
               {myComplaints.map((complaint) => (
                 <div
                   key={complaint.id}
-                  className="p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  className="p-4 transition-colors border border-gray-200 rounded-lg dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-medium text-gray-900 dark:text-gray-100">
@@ -407,11 +408,11 @@ const TenantDashboard = () => {
                       {complaint.status}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="mb-2 text-sm text-gray-600 dark:text-gray-400">
                     Filed on {formatDate(complaint.date)}
                   </p>
                   {complaint.response && (
-                    <div className="mt-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                    <div className="p-2 mt-2 rounded-lg bg-green-50 dark:bg-green-900/20">
                       <p className="text-xs text-green-700 dark:text-green-300">
                         Response: {complaint.response}
                       </p>

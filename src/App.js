@@ -20,6 +20,7 @@ import OwnerProperties from "./pages/owner/pgs/Properties";
 import OwnerTenants from "./pages/owner/tenants/Tenants";
 import OwnerPayments from "./pages/owner/payments/Payments";
 import OwnerComplaints from "./pages/owner/complaints/Complaints";
+import OwnerNotices from "./pages/owner/notices/Notices";
 
 // Tenant Pages
 import TenantDashboard from "./pages/tenant/dashboard/Dashboard";
@@ -40,6 +41,9 @@ import PropertyDetail from "./pages/pg-details";
 
 // Room Pages
 import RoomDetail from "./pages/room-details";
+import RoomsList from "./pages/rooms/RoomsList";
+import Profile from "./pages/profile/Profile";
+import Settings from "./pages/settings/Settings";
 
 // Tenant Pages
 import TenantsList from "./pages/tenants";
@@ -106,6 +110,22 @@ function App() {
               }
             />
             <Route
+              path="rooms/property/:propertyId"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <RoomsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="room/:id"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <RoomDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="tenants"
               element={
                 <ProtectedRoute allowedRoles={["admin"]}>
@@ -137,6 +157,22 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           {/* Owner Routes */}
@@ -163,6 +199,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={["owner"]}>
                   <PropertyDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="rooms/property/:propertyId"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <RoomsList />
                 </ProtectedRoute>
               }
             />
@@ -206,65 +250,118 @@ function App() {
                 </ProtectedRoute>
               }
             />
-          </Route>
-
-          {/* Tenant Routes */}
-          <Route path="/tenant">
             <Route
-              index
-              element={<Navigate to="/tenant/dashboard" replace />}
-            />
-            <Route
-              path="dashboard"
+              path="notices"
               element={
-                <ProtectedRoute allowedRoles={["tenant"]}>
-                  <TenantDashboard />
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <OwnerNotices />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="room"
+              path="profile"
               element={
-                <ProtectedRoute allowedRoles={["tenant"]}>
-                  <TenantRoom />
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="settings"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        
+
+        {/* Tenant Routes */}
+        <Route path="/tenant">
+          <Route index element={<Navigate to="/tenant/dashboard" replace />} />
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <TenantDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="room"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <TenantRoom />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route
+              path="rooms/property/:propertyId"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <RoomsList />
                 </ProtectedRoute>
               }
             />
             <Route
               path="room/:id"
               element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <RoomDetail />
+                </ProtectedRoute>
+              }
+            /> */}
+          {/* <Route
+              path="room/:id"
+              element={
                 <ProtectedRoute allowedRoles={["tenant"]}>
                   <RoomDetail />
                 </ProtectedRoute>
               }
-            />
-            <Route
-              path="payments"
-              element={
-                <ProtectedRoute allowedRoles={["tenant"]}>
-                  <TenantPayments />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="complaints"
-              element={
-                <ProtectedRoute allowedRoles={["tenant"]}>
-                  <TenantComplaints />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="notices"
-              element={
-                <ProtectedRoute allowedRoles={["tenant"]}>
-                  <TenantNotices />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
+            /> */}
+          <Route
+            path="payments"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <TenantPayments />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="complaints"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <TenantComplaints />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="notices"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <TenantNotices />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <ProtectedRoute allowedRoles={["tenant"]}>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
         </Route>
-
+</Route>
         {/* Default Route */}
         <Route path="/" element={<Navigate to={getDefaultRoute()} replace />} />
 
@@ -276,27 +373,30 @@ function App() {
         <Route path="/properties/:id" element={<PropertyDetail />} />
 
         {/* Room Routes */}
+        <Route path="/rooms/property/:propertyId" element={<RoomsList />} />
         <Route path="/rooms/:id" element={<RoomDetail />} />
 
         {/* Tenant Routes */}
         <Route path="/tenants" element={<TenantsList />} />
         <Route path="/tenants/:id" element={<TenantDetail />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
 
         {/* 404 Route */}
         <Route
           path="*"
           element={
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+            <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-950">
               <div className="text-center">
                 <h1 className="text-6xl font-bold text-gray-900 dark:text-gray-100">
                   404
                 </h1>
-                <p className="text-xl text-gray-600 dark:text-gray-400 mt-4">
+                <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">
                   Page not found
                 </p>
                 <button
                   onClick={() => (window.location.href = getDefaultRoute())}
-                  className="mt-6 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+                  className="px-6 py-3 mt-6 text-white rounded-lg bg-primary-600 hover:bg-primary-700"
                 >
                   Go Home
                 </button>

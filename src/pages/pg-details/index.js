@@ -34,7 +34,6 @@ const PropertyDetail = () => {
   const [showRoomForm, setShowRoomForm] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
-  console.log(id);
   // Mock data - replace with actual data from your store/API
   const property = {
     id: "1",
@@ -156,7 +155,7 @@ const PropertyDetail = () => {
       value: property.totalRooms.toString(),
       icon: BedDouble,
       color: "primary",
-      to: `#`,
+      to: `/${window.location.pathname?.split("/")[1]}/rooms/property/${id}`,
     },
     {
       title: "Occupied",
@@ -200,7 +199,7 @@ const PropertyDetail = () => {
     <div className="pb-20 space-y-6 md:pb-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Button variant="ghost" icon={ArrowLeft} onClick={() => navigate(-1)} />
+        <Button variant="ghost" icon={ArrowLeft} onClick={() => navigate(`/${window.location.pathname?.split("/")[1]}/properties` || -1)} />
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             {property.name}
@@ -387,7 +386,7 @@ const PropertyDetail = () => {
               <div
                 key={room.id}
                 className="p-4 transition-all border border-gray-200 cursor-pointer dark:border-gray-800 rounded-xl hover:shadow-md"
-                onClick={() => handleViewRoom(room.id)}
+                // onClick={() => handleViewRoom(room.id)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600">
@@ -444,18 +443,26 @@ const PropertyDetail = () => {
                 )}
 
                 <div className="flex gap-2 pt-3 mt-3 border-t border-gray-200 dark:border-gray-800">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    fullWidth
-                    icon={Eye}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleViewRoom(room.id);
-                    }}
+                  <span
+                    onClick={() =>
+                      navigate(
+                        `${window.location.pathname?.split("/")[1]}/room/${room.id}`,
+                      )
+                    }
                   >
-                    View
-                  </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      fullWidth
+                      icon={Eye}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleViewRoom(room.id);
+                      }}
+                    >
+                      View
+                    </Button>
+                  </span>
                   <Button
                     variant="ghost"
                     size="sm"
